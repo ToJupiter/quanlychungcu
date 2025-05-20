@@ -38,6 +38,9 @@ router.put('/residents/:resident_id', managementController.updateResident);
 // UC-05: Remove a resident from a household (or delete resident record)
 router.delete('/residents/:resident_id', managementController.deleteResident);
 
+// GET /api/management/residents/count - Get total number of residents
+router.get('/residents/count', managementController.getResidentsCount);
+
 
 // --- Vehicle Routes (related to a household) ---
 // UC-04 (SRS pg 20): Add/Register a new vehicle to a household

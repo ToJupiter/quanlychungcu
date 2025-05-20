@@ -333,3 +333,12 @@ exports.deleteVehicle = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.getResidentsCount = async (req, res, next) => {
+  try {
+    const [rows] = await pool.query('SELECT COUNT(*) AS count FROM Residents');
+    res.json({ count: rows[0].count });
+  } catch (error) {
+    next(error);
+  }
+};

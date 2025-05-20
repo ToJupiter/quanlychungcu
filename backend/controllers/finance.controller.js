@@ -3,10 +3,10 @@ const pool = require('../database');
 
 // --- Payment Management (UC-07 Manage Compulsory Fees) ---
 exports.createPayment = async (req, res, next) => {
-  const { household_id, payment_type, amount, due_date, status = 'Unpaid' } = req.body;
+  const { household_id, payment_type, amount, due_date, payment_date, status = 'Unpaid' } = req.body;
 
   if (!household_id || !payment_type || amount === undefined || !due_date) {
-    return res.status(400).json({ message: 'Household ID, payment type, amount, and due date are required.' });
+    return res.status(400).json({ message: 'Household ID, payment type, amount, and due date are required by controller.' });
   }
   if (isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
       return res.status(400).json({ message: 'Amount must be a positive number.' });
@@ -20,8 +20,8 @@ exports.createPayment = async (req, res, next) => {
     }
 
     const [result] = await pool.query(
-      'INSERT INTO Payments (household_id, payment_type, amount, due_date, status) VALUES (?, ?, ?, ?, ?)',
-      [household_id, payment_type, parseFloat(amount), due_date, status]
+      'INSERT INTO Payments (household_id, payment_type, amount, due_date, payment_date, status) VALUES (?, ?, ?, ?, ?, ?)',
+      [household_id, payment_type, parseFloat(amount), due_date, payment_date, status]
     );
     res.status(201).json({ message: 'Payment record created successfully', paymentId: result.insertId });
   } catch (error) {
