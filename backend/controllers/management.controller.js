@@ -1,6 +1,46 @@
 // controllers/management.controller.js
 const pool = require('../database');
 
+// Helper functions for consistent ID handling
+const formatApartmentResponse = (apartment) => ({
+  apartment_id: apartment.apartment_id?.toString(),
+  apartment_number: apartment.apartment_number,
+  area: parseFloat(apartment.area || 0),
+  status: apartment.status
+});
+
+const formatResidentResponse = (resident) => ({
+  resident_id: resident.resident_id?.toString(),
+  household_id: resident.household_id?.toString(),
+  full_name: resident.full_name,
+  date_of_birth: resident.date_of_birth,
+  cccd_number: resident.cccd_number,
+  role_in_household: resident.role_in_household
+});
+
+const formatVehicleResponse = (vehicle) => ({
+  vehicle_id: vehicle.vehicle_id?.toString(),
+  household_id: vehicle.household_id?.toString(),
+  plate_number: vehicle.plate_number,
+  vehicle_type: vehicle.vehicle_type,
+  registration_date: vehicle.registration_date
+});
+
+const formatHouseholdResponse = (household) => ({
+  household_id: household.household_id?.toString(),
+  apartment_id: household.apartment_id?.toString(),
+  apartment_number: household.apartment_number,
+  apartment_area: parseFloat(household.apartment_area || 0),
+  apartment_status: household.apartment_status,
+  head_resident_id: household.head_resident_id?.toString(),
+  head_full_name: household.head_full_name,
+  head_dob: household.head_dob,
+  head_cccd: household.head_cccd,
+  move_in_date: household.move_in_date,
+  residents: household.residents?.map(formatResidentResponse) || [],
+  vehicles: household.vehicles?.map(formatVehicleResponse) || []
+});
+
 // --- Apartment Management ---
 exports.createApartment = async (req, res, next) => {
   const { apartment_number, area, status } = req.body;
@@ -10,9 +50,12 @@ exports.createApartment = async (req, res, next) => {
   try {
     const [result] = await pool.query(
       'INSERT INTO Apartments (apartment_number, area, status) VALUES (?, ?, ?)',
-      [apartment_number, area, status]
+      [apartment_number, parseFloat(area || 0), status]
     );
-    res.status(201).json({ message: 'Apartment created successfully', apartmentId: result.insertId });
+    
+    // Fetch and return the created apartment
+    const [apartment] = await pool.query('SELECT * FROM Apartments WHERE apartment_id = ?', [result.insertId]);
+    res.status(201).json(formatApartmentResponse(apartment[0]));
   } catch (error) {
     if (error.code === 'ER_DUP_ENTRY') {
         return res.status(409).json({ message: 'Apartment number already exists.' });
@@ -24,7 +67,7 @@ exports.createApartment = async (req, res, next) => {
 exports.getAllApartments = async (req, res, next) => {
   try {
     const [apartments] = await pool.query('SELECT * FROM Apartments ORDER BY apartment_number');
-    res.json(apartments);
+    res.json(apartments.map(formatApartmentResponse));
   } catch (error) {
     next(error);
   }
@@ -37,7 +80,7 @@ exports.getApartmentById = async (req, res, next) => {
         if (apartment.length === 0) {
             return res.status(404).json({ message: 'Apartment not found.' });
         }
-        res.json(apartment[0]);
+        res.json(formatApartmentResponse(apartment[0]));
     } catch (error) {
         next(error);
     }
@@ -46,18 +89,21 @@ exports.getApartmentById = async (req, res, next) => {
 exports.updateApartment = async (req, res, next) => {
     const { id } = req.params;
     const { apartment_number, area, status } = req.body;
-     if (!apartment_number) {
+    if (!apartment_number) {
         return res.status(400).json({ message: 'Apartment number is required.' });
     }
     try {
         const [result] = await pool.query(
             'UPDATE Apartments SET apartment_number = ?, area = ?, status = ? WHERE apartment_id = ?',
-            [apartment_number, area, status, id]
+            [apartment_number, parseFloat(area || 0), status, id]
         );
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Apartment not found or no changes made.' });
         }
-        res.json({ message: 'Apartment updated successfully.'});
+        
+        // Fetch and return updated apartment
+        const [apartment] = await pool.query('SELECT * FROM Apartments WHERE apartment_id = ?', [id]);
+        res.json(formatApartmentResponse(apartment[0]));
     } catch (error) {
         if (error.code === 'ER_DUP_ENTRY') {
             return res.status(409).json({ message: 'Apartment number already exists for another record.' });
@@ -95,7 +141,7 @@ exports.createHouseholdWithHead = async (req, res, next) => {
     return res.status(400).json({ message: 'Apartment ID and head of household full name are required.' });
   }
 
-  const connection = await pool.getConnection(); // For transaction
+  const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
 
@@ -117,11 +163,31 @@ exports.createHouseholdWithHead = async (req, res, next) => {
     await connection.query('UPDATE Residents SET household_id = ? WHERE resident_id = ?', [householdId, headResidentId]);
 
     await connection.commit();
-    res.status(201).json({
-      message: 'Household and head resident created successfully',
-      householdId: householdId,
-      headResidentId: headResidentId,
-    });
+
+    // Fetch the full household details
+    const [householdRows] = await connection.query(`
+      SELECT
+        h.household_id, h.move_in_date,
+        a.apartment_id, a.apartment_number, a.area AS apartment_area, a.status as apartment_status,
+        r_head.resident_id AS head_resident_id, r_head.full_name AS head_full_name, 
+        r_head.date_of_birth AS head_dob, r_head.cccd_number AS head_cccd
+      FROM Households h
+      JOIN Apartments a ON h.apartment_id = a.apartment_id
+      LEFT JOIN Residents r_head ON h.head_of_household_resident_id = r_head.resident_id
+      WHERE h.household_id = ?
+    `, [householdId]);
+
+    // Fetch residents and vehicles
+    const [residents] = await connection.query('SELECT * FROM Residents WHERE household_id = ?', [householdId]);
+    const [vehicles] = await connection.query('SELECT * FROM Vehicles WHERE household_id = ?', [householdId]);
+
+    const household = {
+      ...householdRows[0],
+      residents,
+      vehicles
+    };
+
+    res.status(201).json(formatHouseholdResponse(household));
   } catch (error) {
     await connection.rollback();
     if (error.code === 'ER_DUP_ENTRY' && error.message.includes('head_cccd_number')) {
@@ -140,49 +206,62 @@ exports.createHouseholdWithHead = async (req, res, next) => {
 };
 
 exports.getAllHouseholds = async (req, res, next) => {
-  // UC-06: Add filtering capabilities later (e.g., by apartment_number, resident_name)
   try {
     const query = `
-        SELECT
-            h.household_id, h.move_in_date,
-            a.apartment_id, a.apartment_number, a.area AS apartment_area,
-            r_head.resident_id AS head_resident_id, r_head.full_name AS head_full_name, r_head.cccd_number AS head_cccd
-        FROM Households h
-        JOIN Apartments a ON h.apartment_id = a.apartment_id
-        LEFT JOIN Residents r_head ON h.head_of_household_resident_id = r_head.resident_id
-        ORDER BY a.apartment_number;
+      SELECT
+        h.household_id, h.move_in_date,
+        a.apartment_id, a.apartment_number, a.area AS apartment_area, a.status as apartment_status,
+        r_head.resident_id AS head_resident_id, r_head.full_name AS head_full_name,
+        r_head.date_of_birth AS head_dob, r_head.cccd_number AS head_cccd
+      FROM Households h
+      JOIN Apartments a ON h.apartment_id = a.apartment_id
+      LEFT JOIN Residents r_head ON h.head_of_household_resident_id = r_head.resident_id
+      ORDER BY a.apartment_number
     `;
     const [households] = await pool.query(query);
-    res.json(households);
+    
+    // For each household, fetch its residents and vehicles
+    const householdsWithDetails = await Promise.all(households.map(async (household) => {
+      const [residents] = await pool.query('SELECT * FROM Residents WHERE household_id = ?', [household.household_id]);
+      const [vehicles] = await pool.query('SELECT * FROM Vehicles WHERE household_id = ?', [household.household_id]);
+      return { ...household, residents, vehicles };
+    }));
+
+    res.json(householdsWithDetails.map(formatHouseholdResponse));
   } catch (error) {
     next(error);
   }
 };
 
 exports.getHouseholdDetailsById = async (req, res, next) => {
-    // UC-06 extended
     const { id } = req.params;
     try {
-        const householdQuery = `
+        const [householdRows] = await pool.query(`
             SELECT
                 h.household_id, h.move_in_date,
                 a.apartment_id, a.apartment_number, a.area AS apartment_area, a.status as apartment_status,
-                r_head.resident_id AS head_resident_id, r_head.full_name AS head_full_name, r_head.date_of_birth AS head_dob, r_head.cccd_number AS head_cccd
+                r_head.resident_id AS head_resident_id, r_head.full_name AS head_full_name,
+                r_head.date_of_birth AS head_dob, r_head.cccd_number AS head_cccd
             FROM Households h
             JOIN Apartments a ON h.apartment_id = a.apartment_id
             LEFT JOIN Residents r_head ON h.head_of_household_resident_id = r_head.resident_id
-            WHERE h.household_id = ?;
-        `;
-        const [householdRows] = await pool.query(householdQuery, [id]);
+            WHERE h.household_id = ?
+        `, [id]);
+
         if (householdRows.length === 0) {
             return res.status(404).json({ message: 'Household not found.' });
         }
-        const household = householdRows[0];
 
-        const [residents] = await pool.query('SELECT resident_id, full_name, date_of_birth, cccd_number, role_in_household FROM Residents WHERE household_id = ?', [id]);
-        const [vehicles] = await pool.query('SELECT vehicle_id, plate_number, vehicle_type, registration_date FROM Vehicles WHERE household_id = ?', [id]);
+        const [residents] = await pool.query('SELECT * FROM Residents WHERE household_id = ?', [id]);
+        const [vehicles] = await pool.query('SELECT * FROM Vehicles WHERE household_id = ?', [id]);
 
-        res.json({ ...household, residents, vehicles });
+        const household = {
+            ...householdRows[0],
+            residents,
+            vehicles
+        };
+
+        res.json(formatHouseholdResponse(household));
     } catch (error) {
         next(error);
     }

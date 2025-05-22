@@ -1,10 +1,10 @@
 class Resident {
-  final String id; // UUID or ID from backend
-  final String householdId; // To link back to the household
-  String fullName;
-  DateTime? dateOfBirth;
-  String? cccdNumber; // National ID
-  String? roleInHousehold; // e.g., 'Member', 'Tenant', 'Child'
+  final String id;
+  final String householdId;
+  final String fullName;
+  final DateTime? dateOfBirth;
+  final String? cccdNumber;
+  final String? roleInHousehold;
 
   Resident({
     required this.id,
@@ -17,21 +17,20 @@ class Resident {
 
   factory Resident.fromJson(Map<String, dynamic> json) {
     return Resident(
-      id: json['_id'] ?? json['id'] as String,
-      householdId: json['household_id'] as String, // Assuming backend provides this
-      fullName: json['full_name'] as String,
-      dateOfBirth: json['date_of_birth'] != null ? DateTime.parse(json['date_of_birth'] as String) : null,
-      cccdNumber: json['cccd_number'] as String?,
-      roleInHousehold: json['role_in_household'] as String?,
+      id: json['resident_id']?.toString() ?? '',
+      householdId: json['household_id']?.toString() ?? '',
+      fullName: json['full_name']?.toString() ?? 'N/A',
+      dateOfBirth: json['date_of_birth'] != null ? DateTime.tryParse(json['date_of_birth'].toString()) : null,
+      cccdNumber: json['cccd_number']?.toString(),
+      roleInHousehold: json['role_in_household']?.toString(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      // 'id': id, // Usually not sent on create, and part of URL on update
-      'household_id': householdId, // Needed for creating a resident under a household
+      'household_id': householdId,
       'full_name': fullName,
-      'date_of_birth': dateOfBirth?.toIso8601String().split('T')[0], // YYYY-MM-DD
+      'date_of_birth': dateOfBirth?.toIso8601String().split('T')[0],
       'cccd_number': cccdNumber,
       'role_in_household': roleInHousehold,
     };

@@ -13,18 +13,28 @@ class Apartment {
 
   // Optional: Factory constructor for JSON parsing
   factory Apartment.fromJson(Map<String, dynamic> json) {
+    // Parse area safely
+    double parsedArea = 0.0;
+    if (json['area'] != null) {
+      if (json['area'] is String) {
+        parsedArea = double.tryParse(json['area']) ?? 0.0;
+      } else if (json['area'] is num) {
+        parsedArea = (json['area'] as num).toDouble();
+      }
+    }
+
     return Apartment(
-      id: json['apartment_id']?.toString() ?? (json['_id']?.toString() ?? ''), // Handle potential null for id, provide empty string as fallback
-      apartmentNumber: json['apartment_number'] as String? ?? 'N/A', // Handle potential null
-      area: (json['area'] as num?)?.toDouble() ?? 0.0,
-      status: json['status'] as String? ?? 'unknown',
+      id: json['apartment_id']?.toString() ?? '',
+      apartmentNumber: json['apartment_number']?.toString() ?? 'N/A',
+      area: parsedArea,
+      status: json['status']?.toString() ?? 'unknown',
     );
   }
 
   // Optional: Method to convert to JSON (for sending data to backend)
   Map<String, dynamic> toJson() {
     return {
-      'apartmentNumber': apartmentNumber,
+      'apartment_number': apartmentNumber,
       'area': area,
       'status': status,
       // id is usually not sent back for create/update in this way, 

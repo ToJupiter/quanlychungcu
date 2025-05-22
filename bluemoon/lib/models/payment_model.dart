@@ -3,56 +3,67 @@ import 'package:intl/intl.dart';
 class Payment {
   final String id;
   final String householdId;
-  final String? apartmentNumber; // For display, might need to be fetched/joined
-  final String paymentType; // e.g., "Tiền điện", "Tiền nước", "Phí quản lý"
+  final String? apartmentId;
+  final String? apartmentNumber;
+  final String paymentType;
   final double amount;
-  final DateTime? paymentDate; // Made nullable
-  final String status; // e.g., "Chưa thanh toán", "Đã thanh toán", "Quá hạn"
+  final DateTime? paymentDate;
+  final String status;
   final String? notes;
   final DateTime? dueDate;
 
   Payment({
     required this.id,
     required this.householdId,
+    this.apartmentId,
     this.apartmentNumber,
     required this.paymentType,
     required this.amount,
-    this.paymentDate, // Adjusted constructor
+    this.paymentDate,
     required this.status,
     this.notes,
     this.dueDate,
   });
 
   factory Payment.fromJson(Map<String, dynamic> json) {
+    // Parse amount safely
+    double parsedAmount = 0.0;
+    if (json['amount'] != null) {
+      if (json['amount'] is String) {
+        parsedAmount = double.tryParse(json['amount']) ?? 0.0;
+      } else if (json['amount'] is num) {
+        parsedAmount = (json['amount'] as num).toDouble();
+      }
+    }
+
     return Payment(
-      id: json['payment_id']?.toString() ?? '', // Handle potential null
-      householdId: json['household_id']?.toString() ?? '', // Handle potential null
-      apartmentNumber: json['apartment_number'] as String?,
-      paymentType: json['payment_type'] as String? ?? 'N/A',
-      amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
-      paymentDate: json['payment_date'] != null ? DateTime.tryParse(json['payment_date'].toString()) : null, // Use tryParse, handle if not string
-      status: json['status'] as String? ?? 'Unknown',
-      notes: json['notes'] as String?,
-      dueDate: json['due_date'] != null ? DateTime.tryParse(json['due_date'].toString()) : null, // Use tryParse
+      id: json['payment_id']?.toString() ?? '',
+      householdId: json['household_id']?.toString() ?? '',
+      apartmentId: json['apartment_id']?.toString(),
+      apartmentNumber: json['apartment_number']?.toString(),
+      paymentType: json['payment_type']?.toString() ?? 'N/A',
+      amount: parsedAmount,
+      paymentDate: json['payment_date'] != null ? DateTime.tryParse(json['payment_date'].toString()) : null,
+      status: json['status']?.toString() ?? PaymentStatus.pending,
+      notes: json['notes']?.toString(),
+      dueDate: json['due_date'] != null ? DateTime.tryParse(json['due_date'].toString()) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'household_id': householdId,
       'payment_type': paymentType,
       'amount': amount,
-      'payment_date': paymentDate != null ? DateFormat('yyyy-MM-dd').format(paymentDate!) : null, // Handle null
+      'payment_date': paymentDate?.toIso8601String().split('T')[0],
       'status': status,
       'notes': notes,
-      'due_date': dueDate != null ? DateFormat('yyyy-MM-dd').format(dueDate!) : null,
-      // apartment_number is usually not sent back, it's for display
+      'due_date': dueDate?.toIso8601String().split('T')[0],
     };
   }
 
   // Helper for display
-  String get formattedPaymentDate => paymentDate != null ? DateFormat('dd/MM/yyyy').format(paymentDate!) : 'N/A'; // Handle null
+  String get formattedPaymentDate => paymentDate != null ? DateFormat('dd/MM/yyyy').format(paymentDate!) : 'N/A';
   String get formattedDueDate => dueDate != null ? DateFormat('dd/MM/yyyy').format(dueDate!) : 'N/A';
   String get formattedAmount => NumberFormat.currency(locale: 'vi_VN', symbol: '₫').format(amount);
 }

@@ -19,52 +19,38 @@ class HouseholdDetailsData {
   });
 
   factory HouseholdDetailsData.fromJson(Map<String, dynamic> json) {
-    // Assumes the API response for GET /api/management/households/:id/details
-    // has a structure like: { household: {...}, residents: [...], vehicles: [...] }
-    // or directly the household data with nested residents and vehicles lists.
-    // Adjust based on your actual backend response.
-    
-    Household household;
-    List<Resident> residentList = [];
-    List<Vehicle> vehicleList = [];
-
-    // Scenario 1: Household data is top-level, residents/vehicles are nested lists
-    if (json.containsKey('head_resident_name')) { // Heuristic: if household fields are top-level
-        household = Household.fromJson(json); 
-        if (json['residents'] != null) {
-            var resList = json['residents'] as List;
-            residentList = resList.map((i) => Resident.fromJson(i as Map<String, dynamic>)).toList();
-        }
-        if (json['vehicles'] != null) {
-            var vehList = json['vehicles'] as List;
-            vehicleList = vehList.map((i) => Vehicle.fromJson(i as Map<String, dynamic>)).toList();
-        }
-    } 
-    // Scenario 2: Response has a main 'household' object, and separate lists for residents/vehicles
-    // else if (json.containsKey('household') && json['household'] is Map) {
-    //   household = Household.fromJson(json['household'] as Map<String, dynamic>);
-    //    if (json['residents'] != null) {
-    //        var resList = json['residents'] as List;
-    //        residentList = resList.map((i) => Resident.fromJson(i as Map<String, dynamic>)).toList();
-    //    }
-    //    if (json['vehicles'] != null) {
-    //        var vehList = json['vehicles'] as List;
-    //        vehicleList = vehList.map((i) => Vehicle.fromJson(i as Map<String, dynamic>)).toList();
-    //    }
-    // } 
-    else {
-        // Fallback or throw error if structure is unexpected
-        // For now, let's assume the first scenario is what backend /households/:id/details gives
-        // If it's just the basic household GET /households/:id, it won't have residents/vehicles.
-        // The endpoint /details strongly implies it will have these nested lists.
-        throw Exception('Unexpected JSON structure for HouseholdDetailsData');
+    // Handle the format from our backend which has household fields at top level
+    // with residents and vehicles arrays
+    try {
+      // Extract main household data
+      Household household = Household.fromJson(json);
+      
+      // Extract residents
+      List<Resident> residentList = [];
+      if (json['residents'] != null && json['residents'] is List) {
+        residentList = (json['residents'] as List)
+            .map((r) => Resident.fromJson(r as Map<String, dynamic>))
+            .toList();
+      }
+      
+      // Extract vehicles
+      List<Vehicle> vehicleList = [];
+      if (json['vehicles'] != null && json['vehicles'] is List) {
+        vehicleList = (json['vehicles'] as List)
+            .map((v) => Vehicle.fromJson(v as Map<String, dynamic>))
+            .toList();
+      }
+      
+      return HouseholdDetailsData(
+        householdInfo: household,
+        residents: residentList,
+        vehicles: vehicleList,
+      );
+    } catch (e) {
+      print('Error parsing HouseholdDetailsData: $e');
+      print('JSON structure: ${json.keys.join(', ')}');
+      throw Exception('Failed to parse household details: $e');
     }
-
-    return HouseholdDetailsData(
-      householdInfo: household,
-      residents: residentList,
-      vehicles: vehicleList,
-    );
   }
 }
 
@@ -85,7 +71,7 @@ class HouseholdService {
     try {
       final response = await http.get(Uri.parse(url), headers: await _getHeaders());
       if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body) as Map<String, dynamic>; 
+        final responseData = jsonDecode(response.body) as Map<String, dynamic>;
         return HouseholdDetailsData.fromJson(responseData);
       } else {
         print('Failed to load household details for $householdId: ${response.statusCode} ${response.body}');
@@ -206,7 +192,10 @@ class HouseholdService {
           print('Unexpected household list format: $responseBody');
           throw Exception('Unexpected response format for households');
         }
-        List<Household> households = householdList.map((dynamic item) => Household.fromJson(item as Map<String, dynamic>)).toList();
+        List<Household> households = householdList
+          .map((dynamic item) => Household.fromJson(item as Map<String, dynamic>))
+          .where((h) => h.id.isNotEmpty && h.apartmentId.isNotEmpty && h.headResidentName.isNotEmpty)
+          .toList();
         return households;
       } else {
         print('Failed to load households: ${response.statusCode} ${response.body}');

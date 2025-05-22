@@ -269,6 +269,10 @@ class _PaymentFormViewState extends State<PaymentFormView> {
     if (_households.isEmpty) {
       return const Center(child: Text("Không tìm thấy hộ nào. Vui lòng tạo hộ trước."));
     }
+    // If the selected household is not in the list, clear the selection
+    if (_selectedHouseholdId != null && !_households.any((h) => h.id == _selectedHouseholdId)) {
+      _selectedHouseholdId = null;
+    }
     return DropdownButtonFormField<String>(
       value: _selectedHouseholdId,
       decoration: const InputDecoration(labelText: 'Hộ gia đình', border: OutlineInputBorder(), prefixIcon: Icon(Icons.home_work)),

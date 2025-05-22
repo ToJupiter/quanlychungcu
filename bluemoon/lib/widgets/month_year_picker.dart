@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 Future<DateTime?> showMonthYearPicker(
   BuildContext context,
@@ -9,6 +10,7 @@ Future<DateTime?> showMonthYearPicker(
     DateTime? lastDate,
   }
 ) async {
+  await initializeDateFormatting('vi_VN'); // Ensure locale data is loaded
   final ThemeData theme = Theme.of(context);
   final bool isDark = theme.brightness == Brightness.dark;
   final Color headerColor = isDark ? theme.colorScheme.surface : theme.colorScheme.primary;

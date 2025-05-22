@@ -180,37 +180,37 @@ class _PaymentListViewState extends State<PaymentListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quản lý Thanh toán'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add_circle_outline),
-            tooltip: 'Tạo phiếu thu mới',
-            onPressed: _navigateToCreateForm,
-          ),
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            tooltip: 'Tải lại',
-            onPressed: _fetchPayments,
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          _buildFilterBar(),
-          Expanded(
-            child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : _error != null
-                    ? Center(child: Padding(padding: const EdgeInsets.all(16), child: Text('Lỗi: $_error', style: const TextStyle(color: Colors.red), textAlign: TextAlign.center)))
-                    : RefreshIndicator(
-                        onRefresh: _fetchPayments,
-                        child: _filteredPayments.isEmpty
-                            ? Center(child: Text(_payments.isEmpty ? 'Không có khoản thanh toán nào.' : 'Không có kết quả nào khớp với tìm kiếm/lọc của bạn.'))
-                            : _buildPaymentDataTable(),
-                      ),
-          ),
-        ],
+        appBar: AppBar(
+          title: const Text('Quản lý Thanh toán'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add_circle_outline),
+              tooltip: 'Tạo phiếu thu mới',
+              onPressed: _navigateToCreateForm,
+            ),
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              tooltip: 'Tải lại',
+              onPressed: _fetchPayments,
+            )
+          ],
+        ),
+        body: Column(
+          children: [
+            _buildFilterBar(),
+            Expanded(
+              child: _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : _error != null
+                      ? Center(child: Padding(padding: const EdgeInsets.all(16), child: Text('Lỗi: $_error', style: const TextStyle(color: Colors.red), textAlign: TextAlign.center)))
+                      : RefreshIndicator(
+                          onRefresh: _fetchPayments,
+                          child: _filteredPayments.isEmpty
+                              ? Center(child: Text(_payments.isEmpty ? 'Không có khoản thanh toán nào.' : 'Không có kết quả nào khớp với tìm kiếm/lọc của bạn.'))
+                              : _buildPaymentDataTable(),
+                        ),
+            ),
+          ],
       ),
     );
   }

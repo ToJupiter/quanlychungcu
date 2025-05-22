@@ -57,9 +57,11 @@ class _FinancialReportViewState extends State<FinancialReportView> {
       firstDate: DateTime(DateTime.now().year - 5), // Allow reports for past 5 years
       lastDate: DateTime.now(), // Up to current month
     );
-    if (picked != null && picked != _selectedMonthYear) {
+    // Compare only month and year to ensure change is detected correctly
+    if (picked != null && 
+        (picked.year != _selectedMonthYear.year || picked.month != _selectedMonthYear.month)) {
       setState(() {
-        _selectedMonthYear = picked;
+        _selectedMonthYear = picked; // Day will be 1st, time 00:00 from picker logic
       });
       _fetchFinancialSummary(); // Re-fetch with new month/year filter
     }
@@ -68,31 +70,31 @@ class _FinancialReportViewState extends State<FinancialReportView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Báo cáo Tài chính'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            tooltip: 'Tải lại báo cáo',
-            onPressed: _fetchFinancialSummary,
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: _fetchFinancialSummary,
-        child: Column(
-          children: [
-            _buildMonthSelector(),
-            Expanded(
-              child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : _error != null
-                      ? Center(child: Padding(padding: const EdgeInsets.all(16), child: Text('Lỗi tải báo cáo: $_error', style: const TextStyle(color: Colors.red), textAlign: TextAlign.center)))
-                      : _summaryData == null || _summaryData!.isEmpty
-                          ? const Center(child: Text('Không có dữ liệu báo cáo cho tháng đã chọn.'))
-                          : _buildReportContent(),
+        appBar: AppBar(
+          title: const Text('Báo cáo Tài chính'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              tooltip: 'Tải lại báo cáo',
+              onPressed: _fetchFinancialSummary,
             ),
           ],
+        ),
+        body: RefreshIndicator(
+          onRefresh: _fetchFinancialSummary,
+          child: Column(
+            children: [
+              _buildMonthSelector(),
+              Expanded(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _error != null
+                        ? Center(child: Padding(padding: const EdgeInsets.all(16), child: Text('Lỗi tải báo cáo: $_error', style: const TextStyle(color: Colors.red), textAlign: TextAlign.center)))
+                        : _summaryData == null || _summaryData!.isEmpty
+                            ? const Center(child: Text('Không có dữ liệu báo cáo cho tháng đã chọn.'))
+                            : _buildReportContent(),
+              ),
+            ],
         ),
       ),
     );
@@ -202,8 +204,8 @@ class _FinancialReportViewState extends State<FinancialReportView> {
                   BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: totalCollected, color: Colors.green, width: 25)]),
                   BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: totalOutstandingUnpaid, color: Colors.orange, width: 25)]),
                 ],
+                ),
               ),
-            ),
           ),
           const SizedBox(height: 24),
           Center(
@@ -225,7 +227,7 @@ class _FinancialReportViewState extends State<FinancialReportView> {
     final titleStyle = (isSmall ? Theme.of(context).textTheme.titleSmall : Theme.of(context).textTheme.titleMedium)?.copyWith(color: textColor, fontWeight: FontWeight.w600);
     final valueStyle = (isSmall ? Theme.of(context).textTheme.headlineSmall : Theme.of(context).textTheme.headlineMedium)?.copyWith(color: textColor, fontWeight: FontWeight.bold);
 
-
+    
     return Card(
       elevation: 2,
       color: cardColor,
@@ -241,7 +243,7 @@ class _FinancialReportViewState extends State<FinancialReportView> {
               children: [
                 Expanded(
                   child: Text(
-                    title,
+                  title,
                     style: titleStyle,
                     overflow: TextOverflow.ellipsis,
                   ),
