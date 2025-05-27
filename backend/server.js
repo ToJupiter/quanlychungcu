@@ -8,6 +8,7 @@ const { errorHandler } = require('./middlewares'); // Import the error handler
 const authRoutes = require('./routes/auth.routes');
 const managementRoutes = require('./routes/management.routes');
 const financeRoutes = require('./routes/finance.routes');
+const staffRoutes = require('./routes/staff.routes');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/management', managementRoutes);
 app.use('/api/finance', financeRoutes);
+app.use('/api/staff', staffRoutes);
 
 
 // --- Global Error Handler ---

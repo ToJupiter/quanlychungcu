@@ -306,51 +306,404 @@ class _PaymentListViewState extends State<PaymentListView> {
   }
 
   Widget _buildPaymentDataTable() {
-    final columns = [
-      DataColumn(label: Text('ID', style: Theme.of(context).textTheme.titleSmall)),
-      DataColumn(label: Text('Số Căn Hộ', style: Theme.of(context).textTheme.titleSmall)),
-      DataColumn(label: Text('Loại TT', style: Theme.of(context).textTheme.titleSmall)),
-      DataColumn(label: Text('Số Tiền', style: Theme.of(context).textTheme.titleSmall), numeric: true),
-      DataColumn(label: Text('Ngày TT', style: Theme.of(context).textTheme.titleSmall)),
-      DataColumn(label: Text('Hạn TT', style: Theme.of(context).textTheme.titleSmall)),
-      DataColumn(label: Text('Trạng Thái', style: Theme.of(context).textTheme.titleSmall)),
-      DataColumn(label: Text('Hành Động', style: Theme.of(context).textTheme.titleSmall)),
-    ];
-
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical, // Ensure vertical scroll for the table itself if content overflows
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal, // Allow horizontal scroll for wide tables
-        child: DataTable(
-          columns: columns,
-          rows: _filteredPayments.map((payment) {
-            return DataRow(
-              cells: [
-                DataCell(Text(payment.id.substring(0, 6) + "...")), // Shorten ID
-                DataCell(Text(payment.apartmentNumber ?? 'N/A')),
-                DataCell(Text(payment.paymentType)),
-                DataCell(Text(payment.formattedAmount)),
-                DataCell(Text(payment.formattedPaymentDate)),
-                DataCell(Text(payment.formattedDueDate)),
-                DataCell(Text(payment.status, style: TextStyle(color: _getStatusColor(payment.status)))),
-                DataCell(Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(icon: const Icon(Icons.edit, size: 20), tooltip: "Sửa", onPressed: () => _navigateToEditForm(payment)),
-                    IconButton(icon: Icon(Icons.receipt_long, size: 20, color: Colors.blueGrey[600]), tooltip: "Chi tiết & Cập nhật TT", onPressed: () => _showUpdateStatusModal(payment)),
-                    IconButton(icon: Icon(Icons.delete, size: 20, color: Theme.of(context).colorScheme.error), tooltip: "Xóa", onPressed: () => _deletePayment(payment.id)),
-                  ],
-                )),
-              ],
-            );
-          }).toList(),
-          columnSpacing: 10,
-          headingRowHeight: 40,
-          dataRowMaxHeight: 48,
-          showCheckboxColumn: false,
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 900) {
+              return _buildMobilePaymentView();
+            } else {
+              return _buildDesktopPaymentTable();
+            }
+          },
         ),
       ),
     );
+  }
+
+  Widget _buildDesktopPaymentTable() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.95,
+        child: DataTable(
+          headingRowColor: WidgetStateProperty.all(
+            Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          ),
+          headingRowHeight: 56,
+          dataRowMaxHeight: 72,
+          columnSpacing: 12,
+          horizontalMargin: 24,
+          columns: [
+            DataColumn(
+              label: const Text(
+                'ID',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            DataColumn(
+              label: const Text(
+                'Căn hộ',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            DataColumn(
+              label: const Text(
+                'Loại thanh toán',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            DataColumn(
+              label: const Text(
+                'Số tiền',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              numeric: true,
+            ),
+            DataColumn(
+              label: const Text(
+                'Hạn thanh toán',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            DataColumn(
+              label: const Text(
+                'Ngày thanh toán',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            DataColumn(
+              label: const Text(
+                'Trạng thái',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const DataColumn(
+              label: Text(
+                'Thao tác',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+          rows: _filteredPayments.asMap().entries.map((entry) {
+            final index = entry.key;
+            final payment = entry.value;
+            final isEven = index % 2 == 0;
+            
+            return DataRow(
+              color: WidgetStateProperty.all(
+                isEven 
+                  ? Theme.of(context).colorScheme.surface
+                  : Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              ),
+              cells: [
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        payment.id.length > 6 ? payment.id.substring(0, 6) + "..." : payment.id,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.apartment,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          payment.apartmentNumber ?? 'N/A',
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        payment.paymentType,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      payment.formattedAmount,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          payment.formattedDueDate,
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        if (payment.dueDate != null && payment.status != PaymentStatus.paid)
+                          Text(
+                            _getDaysUntilDue(payment.dueDate!),
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: _getDueDateColor(payment.dueDate!),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      payment.formattedPaymentDate,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: _getStatusColor(payment.status).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: _getStatusColor(payment.status).withOpacity(0.3),
+                        ),
+                      ),
+                      child: Text(
+                        payment.status,
+                        style: TextStyle(
+                          color: _getStatusColor(payment.status),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton.filledTonal(
+                          icon: const Icon(Icons.edit, size: 18),
+                          tooltip: "Chỉnh sửa",
+                          onPressed: () => _navigateToEditForm(payment),
+                        ),
+                        const SizedBox(width: 4),
+                        IconButton.filledTonal(
+                          icon: const Icon(Icons.receipt_long, size: 18),
+                          tooltip: "Chi tiết & Cập nhật",
+                          style: IconButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                            foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                          ),
+                          onPressed: () => _showUpdateStatusModal(payment),
+                        ),
+                        const SizedBox(width: 4),
+                        IconButton.filledTonal(
+                          icon: const Icon(Icons.delete, size: 18),
+                          tooltip: "Xóa",
+                          style: IconButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                            foregroundColor: Theme.of(context).colorScheme.error,
+                          ),
+                          onPressed: () => _deletePayment(payment.id),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobilePaymentView() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: _filteredPayments.length,
+      itemBuilder: (context, index) {
+        final payment = _filteredPayments[index];
+        return Card(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          elevation: 2,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: ExpansionTile(
+            leading: CircleAvatar(
+              backgroundColor: _getStatusColor(payment.status).withOpacity(0.2),
+              child: Icon(
+                Icons.payment,
+                color: _getStatusColor(payment.status),
+                size: 20,
+              ),
+            ),
+            title: Text(
+              'Căn hộ ${payment.apartmentNumber ?? 'N/A'}',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(payment.paymentType),
+                Text(
+                  payment.formattedAmount,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ],
+            ),
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildPaymentInfoRow(Icons.schedule, 'Hạn thanh toán', payment.formattedDueDate),
+                    const SizedBox(height: 8),
+                    _buildPaymentInfoRow(Icons.payment, 'Ngày thanh toán', payment.formattedPaymentDate),
+                    const SizedBox(height: 8),
+                    _buildPaymentInfoRow(Icons.info_outline, 'Trạng thái', payment.status),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton.icon(
+                          icon: const Icon(Icons.edit, size: 16),
+                          label: const Text('Sửa'),
+                          onPressed: () => _navigateToEditForm(payment),
+                        ),
+                        ElevatedButton.icon(
+                          icon: const Icon(Icons.receipt_long, size: 16),
+                          label: const Text('Chi tiết'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                            foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                          ),
+                          onPressed: () => _showUpdateStatusModal(payment),
+                        ),
+                        ElevatedButton.icon(
+                          icon: const Icon(Icons.delete, size: 16),
+                          label: const Text('Xóa'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.error,
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: () => _deletePayment(payment.id),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildPaymentInfoRow(IconData icon, String label, String value) {
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: Theme.of(context).colorScheme.primary),
+        const SizedBox(width: 8),
+        Text(
+          '$label: ',
+          style: const TextStyle(fontWeight: FontWeight.w500),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _getDaysUntilDue(DateTime dueDate) {
+    final days = dueDate.difference(DateTime.now()).inDays;
+    if (days < 0) {
+      return 'Quá hạn ${(-days)} ngày';
+    } else if (days == 0) {
+      return 'Hết hạn hôm nay';
+    } else if (days <= 7) {
+      return 'Còn $days ngày';
+    } else {
+      return '';
+    }
+  }
+
+  Color _getDueDateColor(DateTime dueDate) {
+    final days = dueDate.difference(DateTime.now()).inDays;
+    if (days < 0) {
+      return Colors.red;
+    } else if (days <= 3) {
+      return Colors.orange;
+    } else if (days <= 7) {
+      return Colors.blue;
+    } else {
+      return Colors.grey;
+    }
   }
   
   Color _getStatusColor(String status) {
