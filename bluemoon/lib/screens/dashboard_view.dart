@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // For currency formatting
 import '../screens/household_list_view.dart';
 import '../screens/financial_report_view.dart';
+import '../screens/staff_list_view.dart';
 import '../screens/main_layout.dart'; 
 import '../services/apartment_service.dart'; // For apartment count
 import '../services/payment_service.dart';   // For financial summary
@@ -53,9 +54,10 @@ class _DashboardViewState extends State<DashboardView> {
       // Process apartment count
       _totalApartments = apartmentList.length.toString(); // Get length of the list
       
-      // Process financial summary
+      // Process financial summary - fixed revenue calculation to reflect actual paid amounts
       final financialSummary = financialSummaryResult; // Already a Map<String, dynamic>
-      final double totalRevenue = (financialSummary['totalCollected'] as num?)?.toDouble() ?? 0.0; // Use totalCollected
+      // Use totalCollected which represents actual paid revenue, not just due amounts
+      final double totalRevenue = (financialSummary['totalCollected'] as num?)?.toDouble() ?? 0.0;
       _totalRevenueThisMonth = _currencyFormatter.format(totalRevenue);
 
       // Process residents count
@@ -235,9 +237,13 @@ class _DashboardViewState extends State<DashboardView> {
                 _buildQuickAccessButton(
                   context,
                   'Quản lý Nhân viên',
-                  Icons.manage_accounts_outlined,
-                  () {},
-                  comingSoon: true
+                  Icons.people_alt_outlined,
+                  () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MainLayout(currentRoute: StaffListView.routeName, child: StaffListView())),
+                    );
+                  },
                 ),
               ],
             )

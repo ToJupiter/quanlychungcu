@@ -5,6 +5,7 @@ import '../screens/household_list_view.dart';
 import '../screens/payment_list_view.dart';
 import '../screens/financial_report_view.dart';
 import '../screens/staff_registration_view.dart';
+import '../screens/staff_list_view.dart';
 import '../screens/change_password_view.dart';
 import '../screens/login_view.dart'; // For logout
 import '../services/auth_service.dart'; // Added for role checking
@@ -163,6 +164,7 @@ class _MainLayoutState extends State<MainLayout> {
                   _buildNavItem(context, Icons.people_outline, 'Hộ gia đình', HouseholdListView.routeName, const HouseholdListView()),
                   _buildNavItem(context, Icons.payment_outlined, 'Thanh toán', PaymentListView.routeName, const PaymentListView()),
                   _buildNavItem(context, Icons.bar_chart_outlined, 'Báo cáo', FinancialReportView.routeName, const FinancialReportView()),
+                  _buildNavItem(context, Icons.people_alt_outlined, 'Quản lý nhân viên', StaffListView.routeName, const StaffListView()),
                   if (_userRole == 'admin') // Conditionally show Staff Registration
                     _buildNavItem(context, Icons.person_add_alt_1_outlined, 'Đăng ký nhân viên', StaffRegistrationView.routeName, const StaffRegistrationView()),
                 ],

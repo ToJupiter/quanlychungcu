@@ -244,14 +244,48 @@ class _PaymentFormViewState extends State<PaymentFormView> {
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: Text(_errorMessage!, style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 16)),
                           ),
-                        ElevatedButton(
-                          onPressed: _isSaving ? null : _savePayment,
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            backgroundColor: Theme.of(context).colorScheme.primary,
-                            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                          ),
-                          child: _isSaving ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3)) : Text(_isEditMode ? 'Lưu Thay đổi' : 'Tạo Phiếu thu'),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: OutlinedButton.icon(
+                                icon: const Icon(Icons.cancel_outlined),
+                                label: const Text('Hủy'),
+                                onPressed: _isSaving ? null : () => Navigator.pop(context, false),
+                                style: OutlinedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              flex: 2,
+                              child: _isSaving
+                                  ? ElevatedButton(
+                                      onPressed: null,
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                      child: const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)),
+                                    )
+                                  : ElevatedButton.icon(
+                                      icon: Icon(_isEditMode ? Icons.update : Icons.receipt_long),
+                                      label: Text(_isEditMode ? 'Cập nhật' : 'Tạo phiếu thu'),
+                                      onPressed: _savePayment,
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

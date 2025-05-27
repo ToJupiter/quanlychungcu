@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // For date formatting
-import '../models/household_model.dart';
-import '../screens/household_creation_form_view.dart';
-import '../screens/household_details_view.dart';
+import 'package:intl/intl.dart';
+import '../models/staff_model.dart';
+import '../screens/staff_form_view.dart';
 import '../screens/main_layout.dart';
-import '../services/household_service.dart'; // Import HouseholdService
+import '../services/staff_service.dart';
 
-class HouseholdListView extends StatefulWidget {
-  static const String routeName = '/households'; // Added routeName
-  const HouseholdListView({super.key});
+class StaffListView extends StatefulWidget {
+  static const String routeName = '/staff';
+  const StaffListView({super.key});
 
   @override
-  State<HouseholdListView> createState() => _HouseholdListViewState();
+  State<StaffListView> createState() => _StaffListViewState();
 }
 
-class _HouseholdListViewState extends State<HouseholdListView>
+class _StaffListViewState extends State<StaffListView>
     with TickerProviderStateMixin {
-  List<Household> _households = [];
-  List<Household> _filteredHouseholds = [];
+  List<Staff> _staff = [];
+  List<Staff> _filteredStaff = [];
   bool _isLoading = true;
   String? _errorMessage;
-  final DateFormat _dateFormatter = DateFormat('dd/MM/yyyy');
-  final HouseholdService _householdService = HouseholdService(); // Instantiate service
+  final StaffService _staffService = StaffService();
 
   // Search and filter controllers
   final TextEditingController _searchController = TextEditingController();
-  String? _selectedApartmentStatus;
+  String? _selectedStatus;
   
   // Sorting
   int _sortColumnIndex = 0;
@@ -41,8 +39,8 @@ class _HouseholdListViewState extends State<HouseholdListView>
   void initState() {
     super.initState();
     _initializeAnimations();
-    _fetchHouseholds();
-    _searchController.addListener(_filterHouseholds);
+    _fetchStaff();
+    _searchController.addListener(_filterStaff);
   }
 
   void _initializeAnimations() {
@@ -67,22 +65,25 @@ class _HouseholdListViewState extends State<HouseholdListView>
 
   @override
   void dispose() {
-    _searchController.removeListener(_filterHouseholds);
     _searchController.dispose();
     _fadeController.dispose();
     _slideController.dispose();
     super.dispose();
   }
 
-  Future<void> _fetchHouseholds() async {
+  Future<void> _fetchStaff() async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
+    
     try {
-      _households = await _householdService.fetchHouseholds();
-      _filteredHouseholds = List.from(_households);
-      _filterHouseholds();
+      _staff = await _staffService.fetchStaff(
+        status: _selectedStatus,
+        search: _searchController.text.isNotEmpty ? _searchController.text : null,
+      );
+      _filteredStaff = List.from(_staff);
+      _filterStaff();
       
       if (mounted) {
         setState(() {
@@ -94,43 +95,42 @@ class _HouseholdListViewState extends State<HouseholdListView>
     } catch (e) {
       if (mounted) {
         setState(() {
-          _errorMessage = e.toString();
+          _errorMessage = e.toString().replaceFirst("Exception: ", "");
           _isLoading = false;
         });
       }
     }
   }
 
-  void _filterHouseholds() {
-    List<Household> filtered = List.from(_households);
+  void _filterStaff() {
+    List<Staff> filtered = List.from(_staff);
     
     // Filter by search text
     if (_searchController.text.isNotEmpty) {
-      final query = _searchController.text.toLowerCase();
-      filtered = filtered.where((household) {
-        final apartmentNumberMatch = household.apartmentNumber.toLowerCase().contains(query);
-        final headResidentNameMatch = household.headResidentName.toLowerCase().contains(query);
-        final idMatch = household.id.toLowerCase().contains(query);
-        return apartmentNumberMatch || headResidentNameMatch || idMatch;
+      final searchTerm = _searchController.text.toLowerCase();
+      filtered = filtered.where((staff) {
+        return staff.fullName.toLowerCase().contains(searchTerm) ||
+               staff.email.toLowerCase().contains(searchTerm) ||
+               (staff.phoneNumber?.toLowerCase().contains(searchTerm) ?? false);
       }).toList();
     }
     
-    // Filter by apartment status
-    if (_selectedApartmentStatus != null && _selectedApartmentStatus!.isNotEmpty) {
-      filtered = filtered.where((household) => household.apartmentStatus == _selectedApartmentStatus).toList();
+    // Filter by status
+    if (_selectedStatus != null && _selectedStatus!.isNotEmpty) {
+      filtered = filtered.where((staff) => staff.status == _selectedStatus).toList();
     }
     
     setState(() {
-      _filteredHouseholds = filtered;
+      _filteredStaff = filtered;
     });
   }
 
-  void _sortHouseholds(int columnIndex, bool ascending) {
+  void _sortStaff(int columnIndex, bool ascending) {
     setState(() {
       _sortColumnIndex = columnIndex;
       _sortAscending = ascending;
       
-      _filteredHouseholds.sort((a, b) {
+      _filteredStaff.sort((a, b) {
         dynamic aValue, bValue;
         
         switch (columnIndex) {
@@ -138,21 +138,25 @@ class _HouseholdListViewState extends State<HouseholdListView>
             aValue = a.id;
             bValue = b.id;
             break;
-          case 1: // Apartment Number
-            aValue = a.apartmentNumber;
-            bValue = b.apartmentNumber;
+          case 1: // Full Name
+            aValue = a.fullName;
+            bValue = b.fullName;
             break;
-          case 2: // Head Resident Name
-            aValue = a.headResidentName;
-            bValue = b.headResidentName;
+          case 2: // Email
+            aValue = a.email;
+            bValue = b.email;
             break;
-          case 3: // Move In Date
-            aValue = a.moveInDate;
-            bValue = b.moveInDate;
+          case 3: // Phone
+            aValue = a.phoneNumber ?? '';
+            bValue = b.phoneNumber ?? '';
             break;
-          case 4: // Apartment Area
-            aValue = a.apartmentArea;
-            bValue = b.apartmentArea;
+          case 4: // Status
+            aValue = a.status;
+            bValue = b.status;
+            break;
+          case 5: // Created At
+            aValue = a.createdAt ?? DateTime(1970);
+            bValue = b.createdAt ?? DateTime(1970);
             break;
           default:
             return 0;
@@ -167,30 +171,215 @@ class _HouseholdListViewState extends State<HouseholdListView>
     });
   }
 
-  void _navigateToAddHousehold() {
+  Future<void> _toggleStaffStatus(Staff staff) async {
+    final newStatus = staff.status == StaffStatus.active 
+        ? StaffStatus.inactive 
+        : StaffStatus.active;
+    
+    final bool? confirmed = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: Row(
+            children: [
+              Icon(
+                newStatus == StaffStatus.active ? Icons.check_circle : Icons.block,
+                color: newStatus == StaffStatus.active ? Colors.green : Colors.orange,
+              ),
+              const SizedBox(width: 8),
+              Text(newStatus == StaffStatus.active ? 'Kích hoạt nhân viên' : 'Vô hiệu hóa nhân viên'),
+            ],
+          ),
+          content: Text(
+            'Bạn có chắc chắn muốn ${newStatus == StaffStatus.active ? 'kích hoạt' : 'vô hiệu hóa'} nhân viên ${staff.fullName}?'
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Hủy'),
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: newStatus == StaffStatus.active ? Colors.green : Colors.orange,
+                foregroundColor: Colors.white,
+              ),
+              child: Text(newStatus == StaffStatus.active ? 'Kích hoạt' : 'Vô hiệu hóa'),
+              onPressed: () => Navigator.of(context).pop(true),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true) {
+      setState(() { _isLoading = true; });
+      try {
+        await _staffService.updateStaffStatus(staff.id, newStatus);
+        await _fetchStaff();
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.check_circle, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Text('Trạng thái nhân viên đã được cập nhật'),
+                ],
+              ),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.error, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text('Lỗi khi cập nhật: ${e.toString().replaceFirst("Exception: ", "")}')),
+                ],
+              ),
+              backgroundColor: Theme.of(context).colorScheme.error,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+          );
+          setState(() { _isLoading = false; });
+        }
+      }
+    }
+  }
+
+  Future<void> _resetPassword(Staff staff) async {
+    final TextEditingController passwordController = TextEditingController();
+    final bool? confirmed = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: Row(
+            children: [
+              Icon(Icons.lock_reset, color: Colors.blue[700]),
+              const SizedBox(width: 8),
+              const Text('Đặt lại mật khẩu'),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Đặt lại mật khẩu cho nhân viên: ${staff.fullName}'),
+              const SizedBox(height: 16),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Mật khẩu mới',
+                  border: OutlineInputBorder(),
+                  helperText: 'Tối thiểu 8 ký tự',
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Hủy'),
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue[700],
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Đặt lại'),
+              onPressed: () {
+                if (passwordController.text.length >= 8) {
+                  Navigator.of(context).pop(true);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Mật khẩu phải có ít nhất 8 ký tự')),
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true && passwordController.text.isNotEmpty) {
+      setState(() { _isLoading = true; });
+      try {
+        await _staffService.resetStaffPassword(staff.id, passwordController.text);
+        await _fetchStaff();
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Row(
+                children: [
+                  Icon(Icons.check_circle, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text('Mật khẩu đã được đặt lại thành công'),
+                ],
+              ),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.error, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text('Lỗi khi đặt lại mật khẩu: ${e.toString().replaceFirst("Exception: ", "")}')),
+                ],
+              ),
+              backgroundColor: Theme.of(context).colorScheme.error,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+          );
+          setState(() { _isLoading = false; });
+        }
+      }
+    }
+  }
+
+  void _navigateToAddStaff() {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const MainLayout(
-          currentRoute: '/households/new',
-          child: HouseholdCreationFormView(),
+          currentRoute: '/staff/new',
+          child: StaffFormView(),
         ),
       ),
-    ).then((success) {
-      if (success == true) _fetchHouseholds();
+    ).then((result) {
+      if (result == true) _fetchStaff();
     });
   }
 
-  void _navigateToHouseholdDetails(String householdId) {
+  void _navigateToEditStaff(Staff staff) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => MainLayout(
-          currentRoute: '/households/details/$householdId',
-          child: HouseholdDetailsView(householdId: householdId),
+          currentRoute: '/staff/edit/${staff.id}',
+          child: StaffFormView(staff: staff),
         ),
       ),
-    ).then((_) => _fetchHouseholds());
+    ).then((result) {
+      if (result == true) _fetchStaff();
+    });
   }
 
   Widget _buildFilterBar() {
@@ -208,7 +397,7 @@ class _HouseholdListViewState extends State<HouseholdListView>
                   child: TextField(
                     controller: _searchController,
                     decoration: InputDecoration(
-                      labelText: 'Tìm kiếm theo ID, căn hộ, chủ hộ...',
+                      labelText: 'Tìm kiếm nhân viên...',
                       prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -222,20 +411,20 @@ class _HouseholdListViewState extends State<HouseholdListView>
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     decoration: InputDecoration(
-                      labelText: 'Trạng thái căn hộ',
+                      labelText: 'Trạng thái',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                       filled: true,
                       fillColor: Theme.of(context).colorScheme.surface,
                     ),
-                    value: _selectedApartmentStatus,
+                    value: _selectedStatus,
                     items: [
                       const DropdownMenuItem<String>(
                         value: null,
                         child: Text('Tất cả'),
                       ),
-                      ...['occupied', 'vacant', 'maintenance'].map(
+                      ...StaffStatus.all.map(
                         (status) => DropdownMenuItem<String>(
                           value: status,
                           child: Text(_getStatusDisplayName(status)),
@@ -244,9 +433,9 @@ class _HouseholdListViewState extends State<HouseholdListView>
                     ],
                     onChanged: (value) {
                       setState(() {
-                        _selectedApartmentStatus = value;
+                        _selectedStatus = value;
                       });
-                      _filterHouseholds();
+                      _fetchStaff();
                     },
                   ),
                 ),
@@ -255,9 +444,9 @@ class _HouseholdListViewState extends State<HouseholdListView>
                   onPressed: () {
                     setState(() {
                       _searchController.clear();
-                      _selectedApartmentStatus = null;
+                      _selectedStatus = null;
                     });
-                    _filterHouseholds();
+                    _fetchStaff();
                   },
                   icon: const Icon(Icons.clear_all),
                   tooltip: 'Xóa bộ lọc',
@@ -272,12 +461,10 @@ class _HouseholdListViewState extends State<HouseholdListView>
 
   String _getStatusDisplayName(String status) {
     switch (status) {
-      case 'occupied':
-        return 'Đã có người ở';
-      case 'vacant':
-        return 'Trống';
-      case 'maintenance':
-        return 'Bảo trì';
+      case StaffStatus.active:
+        return 'Hoạt động';
+      case StaffStatus.inactive:
+        return 'Không hoạt động';
       default:
         return status;
     }
@@ -285,12 +472,10 @@ class _HouseholdListViewState extends State<HouseholdListView>
 
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'occupied':
+      case StaffStatus.active:
         return Colors.green;
-      case 'vacant':
-        return Colors.blue;
-      case 'maintenance':
-        return Colors.orange;
+      case StaffStatus.inactive:
+        return Colors.red;
       default:
         return Colors.grey;
     }
@@ -304,7 +489,7 @@ class _HouseholdListViewState extends State<HouseholdListView>
         borderRadius: BorderRadius.circular(16),
         child: LayoutBuilder(
           builder: (context, constraints) {
-            if (constraints.maxWidth < 800) {
+            if (constraints.maxWidth < 900) {
               return _buildMobileView();
             } else {
               return _buildDesktopTable();
@@ -333,45 +518,45 @@ class _HouseholdListViewState extends State<HouseholdListView>
           columns: [
             DataColumn(
               label: const Text(
-                'ID Hộ',
+                'ID',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              onSort: (columnIndex, ascending) => _sortHouseholds(columnIndex, ascending),
+              onSort: (columnIndex, ascending) => _sortStaff(columnIndex, ascending),
             ),
             DataColumn(
               label: const Text(
-                'Số căn hộ',
+                'Họ và tên',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              onSort: (columnIndex, ascending) => _sortHouseholds(columnIndex, ascending),
+              onSort: (columnIndex, ascending) => _sortStaff(columnIndex, ascending),
             ),
             DataColumn(
               label: const Text(
-                'Chủ hộ',
+                'Email',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              onSort: (columnIndex, ascending) => _sortHouseholds(columnIndex, ascending),
+              onSort: (columnIndex, ascending) => _sortStaff(columnIndex, ascending),
             ),
             DataColumn(
               label: const Text(
-                'Ngày chuyển đến',
+                'Số điện thoại',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              onSort: (columnIndex, ascending) => _sortHouseholds(columnIndex, ascending),
+              onSort: (columnIndex, ascending) => _sortStaff(columnIndex, ascending),
             ),
             DataColumn(
               label: const Text(
-                'Diện tích (m²)',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              numeric: true,
-              onSort: (columnIndex, ascending) => _sortHouseholds(columnIndex, ascending),
-            ),
-            const DataColumn(
-              label: Text(
                 'Trạng thái',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
+              onSort: (columnIndex, ascending) => _sortStaff(columnIndex, ascending),
+            ),
+            DataColumn(
+              label: const Text(
+                'Ngày tạo',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onSort: (columnIndex, ascending) => _sortStaff(columnIndex, ascending),
             ),
             const DataColumn(
               label: Text(
@@ -380,9 +565,9 @@ class _HouseholdListViewState extends State<HouseholdListView>
               ),
             ),
           ],
-          rows: _filteredHouseholds.asMap().entries.map((entry) {
+          rows: _filteredStaff.asMap().entries.map((entry) {
             final index = entry.key;
-            final household = entry.value;
+            final staff = entry.value;
             final isEven = index % 2 == 0;
             
             return DataRow(
@@ -402,7 +587,7 @@ class _HouseholdListViewState extends State<HouseholdListView>
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        household.id.length > 8 ? household.id.substring(0, 8) + '...' : household.id,
+                        staff.id.length > 6 ? staff.id.substring(0, 6) + '...' : staff.id,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -418,59 +603,24 @@ class _HouseholdListViewState extends State<HouseholdListView>
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.apartment,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          household.apartmentNumber,
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                DataCell(
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          household.headResidentName,
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        if (household.headResidentCccd != null)
-                          Text(
-                            'CCCD: ${household.headResidentCccd}',
+                        CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                          child: Text(
+                            staff.fullName.isNotEmpty ? staff.fullName[0].toUpperCase() : '?',
                             style: TextStyle(
-                              fontSize: 11,
-                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                              color: Theme.of(context).colorScheme.onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
                             ),
                           ),
-                      ],
-                    ),
-                  ),
-                ),
-                DataCell(
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          _dateFormatter.format(household.moveInDate),
-                          style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          _getDaysLived(household.moveInDate),
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            staff.fullName,
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -481,10 +631,21 @@ class _HouseholdListViewState extends State<HouseholdListView>
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      household.apartmentArea.toStringAsFixed(1),
+                      staff.email,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
-                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      staff.phoneNumber ?? 'N/A',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
                       ),
                     ),
                   ),
@@ -495,19 +656,30 @@ class _HouseholdListViewState extends State<HouseholdListView>
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: _getStatusColor(household.apartmentStatus).withOpacity(0.1),
+                        color: _getStatusColor(staff.status).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: _getStatusColor(household.apartmentStatus).withOpacity(0.3),
+                          color: _getStatusColor(staff.status).withValues(alpha: 0.3),
                         ),
                       ),
                       child: Text(
-                        _getStatusDisplayName(household.apartmentStatus),
+                        staff.statusDisplayName,
                         style: TextStyle(
-                          color: _getStatusColor(household.apartmentStatus),
+                          color: _getStatusColor(staff.status),
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
                         ),
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      staff.formattedCreatedDate,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
                       ),
                     ),
                   ),
@@ -519,13 +691,36 @@ class _HouseholdListViewState extends State<HouseholdListView>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton.filledTonal(
-                          icon: const Icon(Icons.people, size: 18),
-                          tooltip: 'Xem chi tiết & Quản lý thành viên',
-                          style: IconButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                            foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                          icon: const Icon(Icons.edit, size: 18),
+                          tooltip: 'Chỉnh sửa',
+                          onPressed: () => _navigateToEditStaff(staff),
+                        ),
+                        const SizedBox(width: 4),
+                        IconButton.filledTonal(
+                          icon: Icon(
+                            staff.status == StaffStatus.active ? Icons.block : Icons.check_circle,
+                            size: 18,
                           ),
-                          onPressed: () => _navigateToHouseholdDetails(household.id),
+                          tooltip: staff.status == StaffStatus.active ? 'Vô hiệu hóa' : 'Kích hoạt',
+                          style: IconButton.styleFrom(
+                            backgroundColor: staff.status == StaffStatus.active 
+                                ? Theme.of(context).colorScheme.errorContainer
+                                : Theme.of(context).colorScheme.primaryContainer,
+                            foregroundColor: staff.status == StaffStatus.active 
+                                ? Theme.of(context).colorScheme.error
+                                : Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: () => _toggleStaffStatus(staff),
+                        ),
+                        const SizedBox(width: 4),
+                        IconButton.filledTonal(
+                          icon: const Icon(Icons.lock_reset, size: 18),
+                          tooltip: 'Đặt lại mật khẩu',
+                          style: IconButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                            foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                          ),
+                          onPressed: () => _resetPassword(staff),
                         ),
                       ],
                     ),
@@ -543,37 +738,37 @@ class _HouseholdListViewState extends State<HouseholdListView>
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: _filteredHouseholds.length,
+      itemCount: _filteredStaff.length,
       itemBuilder: (context, index) {
-        final household = _filteredHouseholds[index];
+        final staff = _filteredStaff[index];
         return Card(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           elevation: 2,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: ExpansionTile(
             leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              backgroundColor: _getStatusColor(staff.status).withValues(alpha: 0.2),
               child: Text(
-                household.apartmentNumber.substring(0, 1),
+                staff.fullName.isNotEmpty ? staff.fullName[0].toUpperCase() : '?',
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  color: _getStatusColor(staff.status),
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             title: Text(
-              'Căn hộ ${household.apartmentNumber}',
+              staff.fullName,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Chủ hộ: ${household.headResidentName}'),
+                Text(staff.email),
                 Text(
-                  'ID: ${household.id.length > 8 ? household.id.substring(0, 8) + '...' : household.id}',
+                  staff.statusDisplayName,
                   style: TextStyle(
-                    fontSize: 12,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    color: _getStatusColor(staff.status),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -584,27 +779,33 @@ class _HouseholdListViewState extends State<HouseholdListView>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildInfoRow(Icons.calendar_today, 'Ngày chuyển đến', _dateFormatter.format(household.moveInDate)),
+                    _buildStaffInfoRow(Icons.phone, 'Số điện thoại', staff.phoneNumber ?? 'N/A'),
                     const SizedBox(height: 8),
-                    _buildInfoRow(Icons.square_foot, 'Diện tích', '${household.apartmentArea.toStringAsFixed(1)} m²'),
+                    _buildStaffInfoRow(Icons.calendar_today, 'Ngày tạo', staff.formattedCreatedDate),
                     const SizedBox(height: 8),
-                    _buildInfoRow(Icons.info_outline, 'Trạng thái', _getStatusDisplayName(household.apartmentStatus)),
-                    if (household.headResidentCccd != null) ...[
-                      const SizedBox(height: 8),
-                      _buildInfoRow(Icons.credit_card, 'CCCD chủ hộ', household.headResidentCccd!),
-                    ],
+                    _buildStaffInfoRow(Icons.info_outline, 'ID', staff.id),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton.icon(
-                          icon: const Icon(Icons.people, size: 16),
-                          label: const Text('Chi tiết & Thành viên'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                            foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                          icon: const Icon(Icons.edit, size: 16),
+                          label: const Text('Sửa'),
+                          onPressed: () => _navigateToEditStaff(staff),
+                        ),
+                        ElevatedButton.icon(
+                          icon: Icon(
+                            staff.status == StaffStatus.active ? Icons.block : Icons.check_circle,
+                            size: 16,
                           ),
-                          onPressed: () => _navigateToHouseholdDetails(household.id),
+                          label: Text(staff.status == StaffStatus.active ? 'Vô hiệu' : 'Kích hoạt'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: staff.status == StaffStatus.active 
+                                ? Theme.of(context).colorScheme.error
+                                : Colors.green,
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: () => _toggleStaffStatus(staff),
                         ),
                       ],
                     ),
@@ -618,7 +819,7 @@ class _HouseholdListViewState extends State<HouseholdListView>
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String label, String value) {
+  Widget _buildStaffInfoRow(IconData icon, String label, String value) {
     return Row(
       children: [
         Icon(icon, size: 16, color: Theme.of(context).colorScheme.primary),
@@ -631,26 +832,12 @@ class _HouseholdListViewState extends State<HouseholdListView>
           child: Text(
             value,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
             ),
           ),
         ),
       ],
     );
-  }
-
-  String _getDaysLived(DateTime moveInDate) {
-    final days = DateTime.now().difference(moveInDate).inDays;
-    if (days < 30) {
-      return '$days ngày';
-    } else if (days < 365) {
-      final months = (days / 30).floor();
-      return '$months tháng';
-    } else {
-      final years = (days / 365).floor();
-      final remainingMonths = ((days % 365) / 30).floor();
-      return '$years năm ${remainingMonths > 0 ? '$remainingMonths tháng' : ''}';
-    }
   }
 
   @override
@@ -668,16 +855,16 @@ class _HouseholdListViewState extends State<HouseholdListView>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Quản lý Hộ gia đình',
+                    'Quản lý Nhân viên',
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   Text(
-                    '${_filteredHouseholds.length} hộ gia đình',
+                    '${_filteredStaff.length} nhân viên',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                 ],
@@ -689,7 +876,7 @@ class _HouseholdListViewState extends State<HouseholdListView>
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
-                onPressed: _navigateToAddHousehold,
+                onPressed: _navigateToAddStaff,
               ),
             ],
           ),
@@ -730,43 +917,43 @@ class _HouseholdListViewState extends State<HouseholdListView>
                             ElevatedButton.icon(
                               icon: const Icon(Icons.refresh),
                               label: const Text('Thử lại'),
-                              onPressed: _fetchHouseholds,
+                              onPressed: _fetchStaff,
                             ),
                           ],
                         ),
                       )
-                    : _filteredHouseholds.isEmpty
+                    : _filteredStaff.isEmpty
                         ? Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Icons.family_restroom,
+                                  Icons.people,
                                   size: 64,
                                   color: Theme.of(context).colorScheme.outline,
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  _households.isEmpty 
-                                      ? 'Chưa có hộ gia đình nào'
-                                      : 'Không tìm thấy hộ gia đình phù hợp',
+                                  _staff.isEmpty 
+                                      ? 'Chưa có nhân viên nào'
+                                      : 'Không tìm thấy nhân viên phù hợp',
                                   style: Theme.of(context).textTheme.headlineSmall,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  _households.isEmpty
-                                      ? 'Hãy thêm hộ gia đình đầu tiên!'
+                                  _staff.isEmpty
+                                      ? 'Hãy thêm nhân viên đầu tiên!'
                                       : 'Thử thay đổi bộ lọc tìm kiếm',
                                   style: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                                   ),
                                 ),
-                                if (_households.isEmpty) ...[
+                                if (_staff.isEmpty) ...[
                                   const SizedBox(height: 16),
                                   ElevatedButton.icon(
                                     icon: const Icon(Icons.add),
-                                    label: const Text('Thêm hộ gia đình'),
-                                    onPressed: _navigateToAddHousehold,
+                                    label: const Text('Thêm nhân viên'),
+                                    onPressed: _navigateToAddStaff,
                                   ),
                                 ],
                               ],
@@ -777,7 +964,7 @@ class _HouseholdListViewState extends State<HouseholdListView>
                             child: SlideTransition(
                               position: _slideAnimation,
                               child: RefreshIndicator(
-                                onRefresh: _fetchHouseholds,
+                                onRefresh: _fetchStaff,
                                 child: SingleChildScrollView(
                                   physics: const AlwaysScrollableScrollPhysics(),
                                   child: _buildDataTable(),

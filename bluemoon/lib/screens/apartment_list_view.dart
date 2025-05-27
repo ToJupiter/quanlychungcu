@@ -3,7 +3,6 @@ import '../models/apartment_model.dart';
 import '../screens/apartment_form_view.dart';
 import '../screens/main_layout.dart'; // For consistent navigation context
 import '../services/apartment_service.dart'; // Import ApartmentService
-import './main_layout.dart';
 
 class ApartmentListView extends StatefulWidget {
   static const String routeName = '/apartments'; // Added routeName
@@ -487,17 +486,11 @@ class _ApartmentListViewState extends State<ApartmentListView>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton.filledTonal(
-                          icon: const Icon(Icons.visibility, size: 18),
-                          tooltip: 'Xem chi tiết',
-                          onPressed: () => _navigateToEditApartment(apartment),
-                        ),
-                        const SizedBox(width: 8),
-                        IconButton.filledTonal(
                           icon: const Icon(Icons.edit, size: 18),
                           tooltip: 'Chỉnh sửa',
                           onPressed: () => _navigateToEditApartment(apartment),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 4),
                         IconButton.filledTonal(
                           icon: const Icon(Icons.delete, size: 18),
                           tooltip: 'Xóa',

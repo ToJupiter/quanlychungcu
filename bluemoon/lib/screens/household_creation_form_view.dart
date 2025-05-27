@@ -256,20 +256,39 @@ class _HouseholdCreationFormViewState extends State<HouseholdCreationFormView> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                _isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : ElevatedButton.icon(
-                        icon: const Icon(Icons.save),
-                        label: const Text('Save Household'),
-                        onPressed: _saveHousehold,
-                        style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 16.0)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.cancel_outlined),
+                        label: const Text('Hủy'),
+                        onPressed: _isLoading ? null : () => Navigator.pop(context, false),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                       ),
-                const SizedBox(height: 12.0),
-                TextButton.icon(
-                  icon: const Icon(Icons.cancel_outlined),
-                  label: const Text('Cancel'),
-                  onPressed: _isLoading ? null : () => Navigator.pop(context, false),
-                  style: TextButton.styleFrom(foregroundColor: Colors.grey[700]),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      flex: 2,
+                      child: _isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ElevatedButton.icon(
+                              icon: const Icon(Icons.home_filled),
+                              label: const Text('Tạo hộ gia đình'),
+                              onPressed: _saveHousehold,
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                    ),
+                  ],
                 ),
               ],
             ),
