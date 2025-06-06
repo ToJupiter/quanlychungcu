@@ -7,4 +7,4 @@ Our tasks:
 - We also need to enhance the buttons by giving them a logo. Some buttons are blank and without logo, some are duplicated (they lead to the same screen). These button errors happen in all screens. And also, there is a logic bug in the revenue calculation of the Dashboard code. It does not take into account the updated "Paid" revenue in the Payment screen. 
 
 
-- Some buttons show its real logo when the layout is vertical and narrow. But when 
+- Some buttons show its real logo when the layout is vertical and narrow. But when extending it to full screen, the logo disappeared. And also, add and change the README to explain how to run all of the code in this repository with easy to understand and short explanation and comments.

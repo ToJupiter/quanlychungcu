@@ -325,6 +325,10 @@ class _ApartmentListViewState extends State<ApartmentListView>
                   },
                   icon: const Icon(Icons.clear_all),
                   tooltip: 'Xóa bộ lọc',
+                  style: IconButton.styleFrom(
+                    minimumSize: const Size(48, 48),
+                    padding: const EdgeInsets.all(12),
+                  ),
                 ),
               ],
             ),
@@ -489,6 +493,10 @@ class _ApartmentListViewState extends State<ApartmentListView>
                           icon: const Icon(Icons.edit, size: 18),
                           tooltip: 'Chỉnh sửa',
                           onPressed: () => _navigateToEditApartment(apartment),
+                          style: IconButton.styleFrom(
+                            minimumSize: const Size(36, 36),
+                            padding: const EdgeInsets.all(8),
+                          ),
                         ),
                         const SizedBox(width: 4),
                         IconButton.filledTonal(
@@ -497,6 +505,8 @@ class _ApartmentListViewState extends State<ApartmentListView>
                           style: IconButton.styleFrom(
                             backgroundColor: Theme.of(context).colorScheme.errorContainer,
                             foregroundColor: Theme.of(context).colorScheme.error,
+                            minimumSize: const Size(36, 36),
+                            padding: const EdgeInsets.all(8),
                           ),
                           onPressed: () => _deleteApartment(apartment.id),
                         ),

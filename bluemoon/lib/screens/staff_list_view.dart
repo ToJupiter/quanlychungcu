@@ -450,6 +450,10 @@ class _StaffListViewState extends State<StaffListView>
                   },
                   icon: const Icon(Icons.clear_all),
                   tooltip: 'Xóa bộ lọc',
+                  style: IconButton.styleFrom(
+                    minimumSize: const Size(48, 48),
+                    padding: const EdgeInsets.all(12),
+                  ),
                 ),
               ],
             ),
@@ -693,6 +697,10 @@ class _StaffListViewState extends State<StaffListView>
                         IconButton.filledTonal(
                           icon: const Icon(Icons.edit, size: 18),
                           tooltip: 'Chỉnh sửa',
+                          style: IconButton.styleFrom(
+                            minimumSize: const Size(36, 36),
+                            padding: const EdgeInsets.all(8),
+                          ),
                           onPressed: () => _navigateToEditStaff(staff),
                         ),
                         const SizedBox(width: 4),
@@ -709,6 +717,8 @@ class _StaffListViewState extends State<StaffListView>
                             foregroundColor: staff.status == StaffStatus.active 
                                 ? Theme.of(context).colorScheme.error
                                 : Theme.of(context).colorScheme.primary,
+                            minimumSize: const Size(36, 36),
+                            padding: const EdgeInsets.all(8),
                           ),
                           onPressed: () => _toggleStaffStatus(staff),
                         ),
@@ -719,6 +729,8 @@ class _StaffListViewState extends State<StaffListView>
                           style: IconButton.styleFrom(
                             backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                             foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                            minimumSize: const Size(36, 36),
+                            padding: const EdgeInsets.all(8),
                           ),
                           onPressed: () => _resetPassword(staff),
                         ),

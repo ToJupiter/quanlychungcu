@@ -294,8 +294,10 @@ class _PaymentListViewState extends State<PaymentListView> {
                 child: IconButton.filledTonal(
                   icon: const Icon(Icons.clear_all),
                   onPressed: _clearFiltersAndFetch,
-                  padding: const EdgeInsets.all(10), // Adjust padding for button size
-                  iconSize: 20, // Adjust icon size
+                  style: IconButton.styleFrom(
+                    minimumSize: const Size(48, 48),
+                    padding: const EdgeInsets.all(12),
+                  ),
                 ),
               )
             ],

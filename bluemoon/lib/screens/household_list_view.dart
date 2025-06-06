@@ -261,6 +261,10 @@ class _HouseholdListViewState extends State<HouseholdListView>
                   },
                   icon: const Icon(Icons.clear_all),
                   tooltip: 'Xóa bộ lọc',
+                  style: IconButton.styleFrom(
+                    minimumSize: const Size(48, 48),
+                    padding: const EdgeInsets.all(12),
+                  ),
                 ),
               ],
             ),
@@ -524,6 +528,8 @@ class _HouseholdListViewState extends State<HouseholdListView>
                           style: IconButton.styleFrom(
                             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                             foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                            minimumSize: const Size(36, 36),
+                            padding: const EdgeInsets.all(8),
                           ),
                           onPressed: () => _navigateToHouseholdDetails(household.id),
                         ),
