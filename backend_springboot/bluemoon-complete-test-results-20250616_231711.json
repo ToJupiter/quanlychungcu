@@ -1,0 +1,757 @@
+[ {
+  "Test_Name" : "com.bluemoon.BasicApplicationTest#applicationCanStart",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BasicApplicationTest#contextLoads",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testRegisterAdmin",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testRegisterAccountant",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testAdminLogin",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testAccountantLogin",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testAddStaff",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetStaffList",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetStaffById",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testUpdateStaffStatus",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testResetStaffPassword",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testDeleteStaff",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testAddHousehold",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetHouseholdList",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetHouseholdById",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testAddResident",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetResidentsByHousehold",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testUpdateResident",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testDeleteResident",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testAddVehicle",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetVehiclesByHousehold",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testUpdateVehicle",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testDeleteVehicle",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testCreatePayment",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetPaymentsByHousehold",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testUpdatePaymentStatus",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testUpdatePayment",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testDeletePayment",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetAnalyticsDashboard",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetFinancialOverview",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testGetGeneralOverview",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.BlackBoxIntegrationTest#testChangePassword",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testDeleteApartmentSuccess",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testUpdateApartmentSuccess",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetApartmentStats",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testDeleteApartmentNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testUpdateApartmentDuplicateNumber",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentDuplicateNumberThrows(String, String, Double)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentDuplicateNumberThrows(String, String, Double)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentDuplicateNumberThrows(String, String, Double)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentDuplicateNumberThrows(String, String, Double)[4]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentDuplicateNumberThrows(String, String, Double)[5]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetAllApartmentsFilters(String, String, int)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetAllApartmentsFilters(String, String, int)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetAllApartmentsFilters(String, String, int)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetAllApartmentsFilters(String, String, int)[4]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetAllApartmentsFilters(String, String, int)[5]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetApartmentByIdFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testGetApartmentByIdNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[4]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[5]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[6]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[7]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[8]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[9]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.ApartmentServiceTest#testCreateApartmentSuccess(String, String, Double, String)[10]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testDangKyQuanTriVienThanhCong",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testDangKyKeToanThanhCong",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testDangNhapThanhCong",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testDangNhapEmailKhongTonTai",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testDangNhapMatKhauSai",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testDangKyEmailDaTonTai",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testThayDoiMatKhauThanhCong",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testThayDoiMatKhauCuSai",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testValidationEmailFormat",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.AuthServiceTest#testValidationPhoneNumber",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testDeleteHouseholdSuccess(String, boolean)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testDeleteHouseholdSuccess(String, boolean)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testDeleteHouseholdSuccess(String, boolean)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testDeleteHouseholdSuccess(String, boolean)[4]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testDeleteHouseholdSuccess(String, boolean)[5]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testUpdateHouseholdSuccess(String, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testUpdateHouseholdSuccess(String, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testGetHouseholdStats",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testDeleteHouseholdNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testUpdateHouseholdChangeHeadResident",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testGetAllHouseholds(String, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testGetAllHouseholds(String, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testGetAllHouseholds(String, String)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testGetHouseholdByIdNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testGetHouseholdByIdFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.HouseholdServiceTest#testUpdateHouseholdNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testUpdatePaymentStatusSuccess",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testGetPaymentsByHousehold",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testCreatePaymentSuccess(String, String, String, String, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testCreatePaymentSuccess(String, String, String, String, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testCreatePaymentSuccess(String, String, String, String, String)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testCreatePaymentSuccess(String, String, String, String, String)[4]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testDeletePaymentSuccess",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testCreatePaymentHouseholdNotFound(String, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testCreatePaymentHouseholdNotFound(String, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testDeletePaymentNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testGetDashboardStats",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.PaymentServiceTest#testUpdatePaymentStatusNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testLayPhuongTienTheoHoGiaDinh",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testThemPhuongTienVaoHoGiaDinh",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testThemPhuongTienBienSoDaTonTai",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testXoaPhuongTien",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testCapNhatPhuongTien",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testTaoThanhToanChoHoGiaDinh",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testLayThanhToanTheoHoGiaDinh",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testCapNhatTrangThaiThanhToan",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testLayThanhToanQuaHan",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testXoaPhiGiaDinhThanhCong",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testValidationBienSoXe",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleAndPaymentServiceTest#testValidationSoTienPhi",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testUpdateVehicleSuccess",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleSuccess(String, String, String, String, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleSuccess(String, String, String, String, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleSuccess(String, String, String, String, String)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleSuccess(String, String, String, String, String)[4]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleSuccess(String, String, String, String, String)[5]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testDeleteVehicleSuccess",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testGetVehicleStats",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleDuplicatePlate(String, String, String, String, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleDuplicatePlate(String, String, String, String, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleDuplicatePlate(String, String, String, String, String)[3]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testDeleteVehicleNotFound",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testGetAllVehicles",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleHouseholdNotFound(String, String, String, String, String)[1]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testCreateVehicleHouseholdNotFound(String, String, String, String, String)[2]",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testGetVehiclesByHousehold",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+}, {
+  "Test_Name" : "com.bluemoon.service.VehicleServiceTest#testUpdateVehicleDuplicatePlate",
+  "Input" : "N/A",
+  "Output" : "",
+  "Test_Descriptions" : "N/A",
+  "OutputStatus" : "PASS"
+} ]

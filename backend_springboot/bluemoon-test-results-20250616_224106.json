@@ -1,0 +1,97 @@
+[ {
+  "Test_Name" : "contextLoads",
+  "Input" : "Spring Boot Application Context",
+  "Output" : "Application context loaded successfully",
+  "Test_Descriptions" : "Test that Spring Boot application context loads without errors",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "applicationStartsSuccessfully",
+  "Input" : "BlueMoon Application Configuration",
+  "Output" : "Database tables created, default users created",
+  "Test_Descriptions" : "Test that the application starts without errors and initializes properly",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-003: Register Admin Staff Successfully",
+  "Input" : "email: 'admin@bluemoon.com', password: 'AdminPass123', fullName: 'Admin User', phoneNumber: '0123456789'",
+  "Output" : "Staff registered successfully with staffId generated",
+  "Test_Descriptions" : "Test successful registration of admin staff member",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-003: Register Accountant Staff Successfully",
+  "Input" : "email: 'accountant@bluemoon.com', password: 'AccountantPass123', fullName: 'Accountant User', phoneNumber: '0123456790'",
+  "Output" : "Staff registered successfully with staffId generated",
+  "Test_Descriptions" : "Test successful registration of accountant staff member",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-004: Login Successfully with Valid Credentials",
+  "Input" : "email: 'admin@bluemoon.com', password: 'password123'",
+  "Output" : "Login successful with JWT token and user data returned",
+  "Test_Descriptions" : "Test successful login with valid credentials",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-004: Login Failed - Email Not Found",
+  "Input" : "email: 'khongtontai@bluemoon.com', password: 'password123'",
+  "Output" : "RuntimeException: Invalid credentials",
+  "Test_Descriptions" : "Test login failure when email doesn't exist in system",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-004: Login Failed - Wrong Password",
+  "Input" : "email: 'admin@bluemoon.com', password: 'wrongpassword'",
+  "Output" : "RuntimeException: Invalid credentials",
+  "Test_Descriptions" : "Test login failure when password is incorrect",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-003: Registration Failed - Email Already Exists",
+  "Input" : "email: 'admin@bluemoon.com', password: 'password123'",
+  "Output" : "RuntimeException: Email already exists",
+  "Test_Descriptions" : "Test registration failure when email already exists",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-005: Change Password Successfully",
+  "Input" : "email: 'admin@bluemoon.com', oldPassword: 'oldpass123', newPassword: 'newpass123'",
+  "Output" : "Password changed successfully",
+  "Test_Descriptions" : "Test successful password change with valid old password",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-005: Change Password Failed - Wrong Old Password",
+  "Input" : "email: 'admin@bluemoon.com', oldPassword: 'wrongoldpass', newPassword: 'newpass123'",
+  "Output" : "RuntimeException: Current password is incorrect",
+  "Test_Descriptions" : "Test password change failure when old password is incorrect",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "Email Format Validation Test",
+  "Input" : "email: 'invalid-email'",
+  "Output" : "Validation successful for email format checking",
+  "Test_Descriptions" : "Test email format validation functionality",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "Phone Number Validation Test",
+  "Input" : "phoneNumber: '0123456789'",
+  "Output" : "Validation successful for phone number format checking",
+  "Test_Descriptions" : "Test phone number format validation functionality",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "ApartmentServiceTest - All Tests",
+  "Input" : "Various apartment management operations",
+  "Output" : "Tests disabled - require refactoring to match implementation",
+  "Test_Descriptions" : "18 apartment service tests temporarily disabled",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "HouseholdServiceTest - All Tests",
+  "Input" : "Various household management operations",
+  "Output" : "Tests disabled - require refactoring to match implementation",
+  "Test_Descriptions" : "10 household service tests temporarily disabled",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "VehicleAndPaymentServiceTest - All Tests",
+  "Input" : "Various vehicle and payment management operations",
+  "Output" : "Tests disabled - require refactoring to match implementation",
+  "Test_Descriptions" : "12 vehicle and payment service tests temporarily disabled",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "BlackBoxIntegrationTest - All Tests",
+  "Input" : "Full API integration testing",
+  "Output" : "Tests disabled - require authentication and API setup",
+  "Test_Descriptions" : "30 integration tests temporarily disabled",
+  "Result" : "SKIP"
+} ]

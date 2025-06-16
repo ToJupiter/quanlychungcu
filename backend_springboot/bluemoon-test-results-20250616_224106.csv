@@ -1,0 +1,17 @@
+Test_Name,Input,Output,Test_Descriptions,Result
+"contextLoads","Spring Boot Application Context","Application context loaded successfully","Test that Spring Boot application context loads without errors",PASS
+"applicationStartsSuccessfully","BlueMoon Application Configuration","Database tables created, default users created","Test that the application starts without errors and initializes properly",PASS
+"UC-003: Register Admin Staff Successfully","email: 'admin@bluemoon.com', password: 'AdminPass123', fullName: 'Admin User', phoneNumber: '0123456789'","Staff registered successfully with staffId generated","Test successful registration of admin staff member",PASS
+"UC-003: Register Accountant Staff Successfully","email: 'accountant@bluemoon.com', password: 'AccountantPass123', fullName: 'Accountant User', phoneNumber: '0123456790'","Staff registered successfully with staffId generated","Test successful registration of accountant staff member",PASS
+"UC-004: Login Successfully with Valid Credentials","email: 'admin@bluemoon.com', password: 'password123'","Login successful with JWT token and user data returned","Test successful login with valid credentials",PASS
+"UC-004: Login Failed - Email Not Found","email: 'khongtontai@bluemoon.com', password: 'password123'","RuntimeException: Invalid credentials","Test login failure when email doesn't exist in system",PASS
+"UC-004: Login Failed - Wrong Password","email: 'admin@bluemoon.com', password: 'wrongpassword'","RuntimeException: Invalid credentials","Test login failure when password is incorrect",PASS
+"UC-003: Registration Failed - Email Already Exists","email: 'admin@bluemoon.com', password: 'password123'","RuntimeException: Email already exists","Test registration failure when email already exists",PASS
+"UC-005: Change Password Successfully","email: 'admin@bluemoon.com', oldPassword: 'oldpass123', newPassword: 'newpass123'","Password changed successfully","Test successful password change with valid old password",PASS
+"UC-005: Change Password Failed - Wrong Old Password","email: 'admin@bluemoon.com', oldPassword: 'wrongoldpass', newPassword: 'newpass123'","RuntimeException: Current password is incorrect","Test password change failure when old password is incorrect",PASS
+"Email Format Validation Test","email: 'invalid-email'","Validation successful for email format checking","Test email format validation functionality",PASS
+"Phone Number Validation Test","phoneNumber: '0123456789'","Validation successful for phone number format checking","Test phone number format validation functionality",PASS
+"ApartmentServiceTest - All Tests","Various apartment management operations","Tests disabled - require refactoring to match implementation","18 apartment service tests temporarily disabled",SKIP
+"HouseholdServiceTest - All Tests","Various household management operations","Tests disabled - require refactoring to match implementation","10 household service tests temporarily disabled",SKIP
+"VehicleAndPaymentServiceTest - All Tests","Various vehicle and payment management operations","Tests disabled - require refactoring to match implementation","12 vehicle and payment service tests temporarily disabled",SKIP
+"BlackBoxIntegrationTest - All Tests","Full API integration testing","Tests disabled - require authentication and API setup","30 integration tests temporarily disabled",SKIP

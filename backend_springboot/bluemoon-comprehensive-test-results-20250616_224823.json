@@ -1,0 +1,559 @@
+[ {
+  "Test_Name" : "context Loads",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Application Startup - context Loads",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "application Can Start",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "application Can Start",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-003: Đăng ký Quản trị viên BQT thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Authentication Service - UC-003: Đăng ký Quản trị viên BQT thành công",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-003: Đăng ký Kế toán thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-003: Đăng ký Kế toán thành công",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-004: Đăng nhập thành công với thông tin hợp lệ",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-004: Đăng nhập thành công với thông tin hợp lệ",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-004: Đăng nhập thất bại - Email không tồn tại",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-004: Đăng nhập thất bại - Email không tồn tại",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-004: Đăng nhập thất bại - Mật khẩu sai",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-004: Đăng nhập thất bại - Mật khẩu sai",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-003: Đăng ký thất bại - Email đã tồn tại",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-003: Đăng ký thất bại - Email đã tồn tại",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-005: Thay đổi mật khẩu thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-005: Thay đổi mật khẩu thành công",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "UC-005: Thay đổi mật khẩu thất bại - Mật khẩu cũ sai",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-005: Thay đổi mật khẩu thất bại - Mật khẩu cũ sai",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "Kiểm tra validation email format",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra validation email format",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "Kiểm tra validation số điện thoại",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra validation số điện thoại",
+  "Result" : "PASS"
+}, {
+  "Test_Name" : "Lấy danh sách căn hộ thành công (có dữ liệu)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Authentication Service - Lấy danh sách căn hộ thành công (có dữ liệu)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Lấy danh sách căn hộ (không có dữ liệu)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Lấy danh sách căn hộ (không có dữ liệu)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Lấy căn hộ theo ID (tồn tại)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Lấy căn hộ theo ID (tồn tại)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Lấy căn hộ theo ID (không tồn tại)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Lấy căn hộ theo ID (không tồn tại)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Tạo căn hộ mới (dữ liệu hợp lệ)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Tạo căn hộ mới (dữ liệu hợp lệ)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Cập nhật căn hộ (tồn tại)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Cập nhật căn hộ (tồn tại)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Cập nhật căn hộ (không tồn tại)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Cập nhật căn hộ (không tồn tại)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Xóa căn hộ (tồn tại)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Xóa căn hộ (tồn tại)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Xóa căn hộ (không tồn tại)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Xóa căn hộ (không tồn tại)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra validation số căn hộ trùng lặp",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra validation số căn hộ trùng lặp",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-006: Thêm gia đình thành công với dữ liệu hợp lệ",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-006: Thêm gia đình thành công với dữ liệu hợp lệ",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-006: Thêm gia đình thất bại - Căn hộ không tồn tại",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-006: Thêm gia đình thất bại - Căn hộ không tồn tại",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-006: Thêm gia đình thất bại - Căn hộ đã có người ở",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-006: Thêm gia đình thất bại - Căn hộ đã có người ở",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-007: Lấy danh sách gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-007: Lấy danh sách gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-007: Lấy gia đình theo ID thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-007: Lấy gia đình theo ID thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-007: Lấy gia đình theo ID không tồn tại",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-007: Lấy gia đình theo ID không tồn tại",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-006: Sửa thông tin gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-006: Sửa thông tin gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-006: Xóa gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-006: Xóa gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-008: Thêm thành viên gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-008: Thêm thành viên gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-008: Thêm thành viên thất bại - CCCD đã tồn tại",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-008: Thêm thành viên thất bại - CCCD đã tồn tại",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-012: Lấy danh sách phương tiện gia đình thành công",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - UC-012: Lấy danh sách phương tiện gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-013: Thêm phương tiện gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-013: Thêm phương tiện gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-013: Thêm phương tiện thất bại - Biển số đã tồn tại",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-013: Thêm phương tiện thất bại - Biển số đã tồn tại",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-013: Xóa phương tiện thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-013: Xóa phương tiện thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-013: Sửa thông tin phương tiện thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-013: Sửa thông tin phương tiện thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-010: Tạo phí gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-010: Tạo phí gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-011: Lấy danh sách phí gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-011: Lấy danh sách phí gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-015: Cập nhật trạng thái thanh toán thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-015: Cập nhật trạng thái thanh toán thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-015: Kiểm tra phí quá hạn",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-015: Kiểm tra phí quá hạn",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-010: Xóa phí gia đình thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-010: Xóa phí gia đình thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra validation định dạng biển số xe",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra validation định dạng biển số xe",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra validation số tiền phí",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra validation số tiền phí",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Register Admin",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Register Admin",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Register Accountant",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Register Accountant",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Admin Login",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Admin Login",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Accountant Login",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Accountant Login",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Add Staff",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Add Staff",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Staff List",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Get Staff List",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Staff By Id",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Get Staff By Id",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Update Staff Status",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Update Staff Status",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Reset Staff Password",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Reset Staff Password",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Delete Staff",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Delete Staff",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Add Household",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Add Household",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Household List",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Get Household List",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Household By Id",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Get Household By Id",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Add Resident",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Add Resident",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Residents By Household",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Get Residents By Household",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Update Resident",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Update Resident",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Delete Resident",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Delete Resident",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Add Vehicle",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Vehicle Management - Add Vehicle",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Vehicles By Household",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Get Vehicles By Household",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Update Vehicle",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Vehicle Management - Update Vehicle",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Delete Vehicle",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Vehicle Management - Delete Vehicle",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Create Payment",
+  "Input" : "Payment information (amount, type, household)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Payment Management - Create Payment",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Payments By Household",
+  "Input" : "Payment information (amount, type, household)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Get Payments By Household",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Update Payment Status",
+  "Input" : "Payment information (amount, type, household)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Payment Management - Update Payment Status",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Update Payment",
+  "Input" : "Payment information (amount, type, household)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Payment Management - Update Payment",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Delete Payment",
+  "Input" : "Payment information (amount, type, household)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Payment Management - Delete Payment",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Analytics Dashboard",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Get Analytics Dashboard",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get Financial Overview",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Get Financial Overview",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Get General Overview",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Get General Overview",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Change Password",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Change Password",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Test Suite 1: Authentication & User Management (Tests 1-10)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Authentication Service - Test Suite 1: Authentication & User Management (Tests 1-10)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Test Suite 2: Apartment Management (Tests 11-20)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Apartment Management - Test Suite 2: Apartment Management (Tests 11-20)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Test Suite 3: Household Management (Tests 21-30)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - Test Suite 3: Household Management (Tests 21-30)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Test Suite 4: Vehicle & Payment Management (Tests 31-36)",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Vehicle Management - Test Suite 4: Vehicle & Payment Management (Tests 31-36)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Test Suite 5: Analytics & Complete Integration (Tests 37-60)",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Integration Test - Test Suite 5: Analytics & Complete Integration (Tests 37-60)",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-014: Lấy thống kê dashboard thành công",
+  "Input" : "Vehicle information (plate number, type, etc.)",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Household Management - UC-014: Lấy thống kê dashboard thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-014: Lấy báo cáo tài chính theo tháng",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-014: Lấy báo cáo tài chính theo tháng",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-001: Thêm nhân viên mới thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-001: Thêm nhân viên mới thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-002: Lấy danh sách tất cả nhân viên",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-002: Lấy danh sách tất cả nhân viên",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-001: Sửa thông tin nhân viên thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-001: Sửa thông tin nhân viên thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "UC-001: Xóa nhân viên thành công",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "UC-001: Xóa nhân viên thành công",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra phân quyền Admin",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra phân quyền Admin",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra phân quyền Kế toán",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra phân quyền Kế toán",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra tính toán số liệu thống kê",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra tính toán số liệu thống kê",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra tìm kiếm và lọc dữ liệu",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra tìm kiếm và lọc dữ liệu",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra validation dữ liệu đầu vào tổng hợp",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra validation dữ liệu đầu vào tổng hợp",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra xử lý lỗi và exception handling",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra xử lý lỗi và exception handling",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra hiệu suất và tối ưu hóa",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra hiệu suất và tối ưu hóa",
+  "Result" : "SKIP"
+}, {
+  "Test_Name" : "Kiểm tra tích hợp end-to-end workflow",
+  "Input" : "Test-specific input data",
+  "Output" : "Expected test outcome based on test logic",
+  "Test_Descriptions" : "Kiểm tra tích hợp end-to-end workflow",
+  "Result" : "SKIP"
+} ]

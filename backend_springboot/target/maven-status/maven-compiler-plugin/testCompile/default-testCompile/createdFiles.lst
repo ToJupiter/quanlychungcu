@@ -1,0 +1,8 @@
+com\bluemoon\service\StaffServiceTest.class
+com\bluemoon\service\AuthServiceTest.class
+com\bluemoon\service\HouseholdServiceTest.class
+com\bluemoon\service\PaymentServiceTest.class
+com\bluemoon\service\VehicleServiceTest.class
+com\bluemoon\service\ResidentServiceTest.class
+com\bluemoon\service\AnalyticsServiceTest.class
+com\bluemoon\BlackBoxIntegrationTest.class
